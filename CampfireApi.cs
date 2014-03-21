@@ -37,7 +37,7 @@ namespace Campfire.Api
             CAMPFIRE_REDIRECT_URL = campfireRedirectUrl;
             CAMPFIRE_SUCCESS_URL = campfireSuccessUrl;
 
-            httpWebRequest = (HttpWebRequest)WebRequest.Create(string.Format(campfireUrl, "salted"));
+            httpWebRequest = (HttpWebRequest)WebRequest.Create(string.Format(campfireUrl, "default"));
             IsInitialized = false;
         }
 
