@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Campfire.Api")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A simple API using OAuth to access the Campfire API for Windows 8.1 apps")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Bad At Math Solutions")]
 [assembly: AssemblyProduct("Campfire.Api")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

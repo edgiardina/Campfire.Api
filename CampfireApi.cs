@@ -49,7 +49,7 @@ namespace Campfire.Api
 
         public string GetEmojiUrl(string emojiName)
         {
-            return string.Format(campfireUrl + "images/emoji/{0}.png", emojiName.Replace(":", string.Empty));
+            return string.Format(campfireUrl + "images/emoji/{0}.png", WebUtility.UrlEncode(emojiName.Replace(":", string.Empty)));
         }
 
         public void SignOut()
@@ -212,13 +212,10 @@ namespace Campfire.Api
             //TODO: Cache user info, so we only poll the web service when we see an unknown user.
             var userList = messages.Messages.Select(n => n.UserId).Distinct();
 
-            foreach (var i in userList)
+            foreach (var i in userList.Where(i => i.HasValue))
             {
-                if (i.HasValue)
-                {
-                    var user = await GetUser(i.Value);
-                    userDict.Add(i.Value, user);
-                }
+                var user = await GetUser(i.Value);
+                userDict.Add(i.Value, user);
             }
 
             foreach (var j in messages.Messages)
