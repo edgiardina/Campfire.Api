@@ -321,7 +321,7 @@ namespace Campfire.Api
             return upload;
         }
 
-        public async Task<Message> PostMessage(int chatRoomId, string message)
+        public async Task<Message> PostMessage(int chatRoomId, string message, bool isSound = false)
         {
             //room/1/speak.json
             string path = string.Format("room/{0}/speak.json", chatRoomId);
@@ -330,6 +330,10 @@ namespace Campfire.Api
             dynamic messageObj = new ExpandoObject();
             messageObj.message = new ExpandoObject();
             messageObj.message.body = message;
+            
+            if(isSound)
+                messageObj.message.type = MessageType.SoundMessage.ToString();
+            
             var serializedMessage = JsonConvert.SerializeObject(messageObj);
 
             var response = await GetResponseAsString(path, "POST", serializedMessage);
@@ -340,7 +344,7 @@ namespace Campfire.Api
             returnMessage.UserName = user.Name;
             return returnMessage;
         }
-
+        
         public async Task<Upload> GetUpload(int uploadId, int roomId)
         {
             string path = string.Format("room/{0}/messages/{1}/upload.json", roomId, uploadId);
