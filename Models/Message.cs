@@ -9,15 +9,6 @@ namespace Campfire.Api.Models
     [DataContract]
     public class Message
     {
-        //      <message>
-        //  <created-at type="datetime">2010-04-15T11:03:08Z</created-at>
-        //  <id type="integer">23</id>
-        //  <room-id type="integer">1</room-id>
-        //  <user-id type="integer">1</user-id>
-        //  <body>Hello room!</body>
-        //  <type>TextMessage</type>
-        //  <starred>false</starred>
-        //</message>
         [DataMember]
         public int Id { get; set; }
         [DataMember(Name = "room_id")]
@@ -31,6 +22,12 @@ namespace Campfire.Api.Models
 
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+
+        [DataMember]
+        public string Url { get; set; }
 
         [DataMember]
         public string Body { get; set; }
