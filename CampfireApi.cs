@@ -55,7 +55,7 @@ namespace Campfire.Api
         public void SignOut()
         {
             IsInitialized = false;
-            
+
             _accessToken = null;
             LoggedInUser = null;
         }
@@ -68,7 +68,7 @@ namespace Campfire.Api
             }
             else
             {
-               accessToken  = await CheckAndGetAccessToken();
+                accessToken = await CheckAndGetAccessToken();
             }
 
             var auth = await GetUserAuthorizationData();
@@ -80,8 +80,6 @@ namespace Campfire.Api
 
         private async Task<string> GetAuthorizeCode()
         {
-            WebAuthenticationResult war;
-
             var url =
                 string.Format("https://launchpad.37signals.com/authorization/new?type=web_server&client_id={0}&redirect_uri={1}",
                 CAMPFIRE_CLIENT_ID,
@@ -92,10 +90,9 @@ namespace Campfire.Api
             var t = startUri.Query;
 
 
-            war = await WebAuthenticationBroker.AuthenticateAsync(
+            WebAuthenticationResult war = await WebAuthenticationBroker.AuthenticateAsync(
                 WebAuthenticationOptions.None,
                 startUri, callbackUri);
-
 
             switch (war.ResponseStatus)
             {
@@ -132,8 +129,7 @@ namespace Campfire.Api
 
         private async Task<Authorization> GetUserAuthorizationData()
         {
-            var url = "https://launchpad.37signals.com/authorization.json";
-            string jsonString = "";
+            const string url = "https://launchpad.37signals.com/authorization.json";
 
             using (var httpClient = new HttpClient())
             {
@@ -145,6 +141,7 @@ namespace Campfire.Api
 
                 var response = await httpWebRequest.GetResponseAsync();
 
+                string jsonString = "";
                 using (var sr = new StreamReader(response.GetResponseStream()))
                 {
                     jsonString = sr.ReadToEnd();
@@ -330,10 +327,10 @@ namespace Campfire.Api
             dynamic messageObj = new ExpandoObject();
             messageObj.message = new ExpandoObject();
             messageObj.message.body = message;
-            
-            if(isSound)
+
+            if (isSound)
                 messageObj.message.type = MessageType.SoundMessage.ToString();
-            
+
             var serializedMessage = JsonConvert.SerializeObject(messageObj);
 
             var response = await GetResponseAsString(path, "POST", serializedMessage);
@@ -344,7 +341,7 @@ namespace Campfire.Api
             returnMessage.UserName = user.Name;
             return returnMessage;
         }
-        
+
         public async Task<Upload> GetUpload(int uploadId, int roomId)
         {
             string path = string.Format("room/{0}/messages/{1}/upload.json", roomId, uploadId);
@@ -403,7 +400,7 @@ namespace Campfire.Api
             httpWebRequest.Method = method;
             httpWebRequest.Accept = "application/json";
             httpWebRequest.Headers["Authorization"] = "Bearer " + _accessToken;
-            
+
             if (body != null)
             {
                 httpWebRequest.ContentType = contentType;

@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -9,16 +11,16 @@ namespace Campfire.Api.Utils
     /// </summary>
     public class BitmapImageUtils
     {
-        public static BitmapImage ToImage(byte[] byteArray)
+        public static async Task<BitmapImage> ToImage(byte[] byteArray)
         {
             var bitmapImage = new BitmapImage();
 
             var stream = new InMemoryRandomAccessStream();
-            stream.WriteAsync(byteArray.AsBuffer());
-            stream.FlushAsync();
+            await stream.WriteAsync(byteArray.AsBuffer());
+            await stream.FlushAsync();
             stream.Seek(0);
 
-            bitmapImage.SetSource(stream);
+            await bitmapImage.SetSourceAsync(stream);
             return bitmapImage;
         }
     }

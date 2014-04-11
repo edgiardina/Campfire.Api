@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Campfire.Api.Utils;
 
 namespace Campfire.Api.Models
 {
