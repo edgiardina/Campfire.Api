@@ -13,6 +13,7 @@ using Windows.Security.Authentication.Web;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Campfire.Api.Models;
+using Campfire.Api.Utils;
 using Newtonsoft.Json;
 
 namespace Campfire.Api
@@ -123,8 +124,6 @@ namespace Campfire.Api
                     throw new SecurityAccessDeniedException("Authentication with Campfire not successful.");
                     break;
             }
-
-
         }
 
         private async Task<Authorization> GetUserAuthorizationData()
@@ -204,7 +203,7 @@ namespace Campfire.Api
 
             string text = await GetResponseAsString(path);
 
-            var messages = JsonConvert.DeserializeObject<MessageCollection>(text);
+            var messages = JsonConvert.DeserializeObject<MessageCollection>(text, new MessageConverter());
 
             //TODO: Cache user info, so we only poll the web service when we see an unknown user.
             var userList = messages.Messages.Select(n => n.UserId).Distinct();
@@ -223,6 +222,7 @@ namespace Campfire.Api
                     j.AvatarUrl = userDict[j.UserId.Value].AvatarUrl;
                 }
 
+                //TODO: Move this call to an external method so we return the messages without waiting for the uploads to be fetched.
                 if (j.Type == MessageType.UploadMessage)
                 {
                     j.Upload = await GetUpload(j.Id, j.RoomId);

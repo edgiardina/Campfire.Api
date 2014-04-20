@@ -19,15 +19,10 @@ namespace Campfire.Api.Models
 
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
-
-        [DataMember]
-        public string Description { get; set; }
-
-        [DataMember]
-        public string Url { get; set; }
-
+        
         [DataMember]
         public string Body { get; set; }
+
         [DataMember]
         public MessageType Type { get; set; }
 
