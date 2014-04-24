@@ -29,6 +29,9 @@ namespace Campfire.Api.Utils
 
             switch (messageType)
             {
+                case MessageType.UploadMessage:
+                    target = new UploadMessage();
+                    break;
                 case MessageType.TweetMessage:
                     target = new TweetMessage();
                     break;

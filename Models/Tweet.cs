@@ -16,6 +16,8 @@ namespace Campfire.Api.Models
         [DataMember(Name = "author_username")]
         public string AuthorUsername { get; set; }
 
+        public string AtAuthorUsername { get { return "@" + AuthorUsername; }}
+
         [DataMember]
         public ulong Id { get; set; }
 

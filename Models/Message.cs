@@ -28,18 +28,12 @@ namespace Campfire.Api.Models
 
         [DataMember]
         public bool Starred { get; set; }
-
-        public Upload Upload { get; set; }
-
+        
         public string ImageUrl
         {
             get
             {
-               if (this.Type == MessageType.UploadMessage)
-               {
-                   return this.Upload.FullUrl;
-               }
-               else if (this.Type == MessageType.TextMessage)
+               if (this.Type == MessageType.TextMessage)
                {
                    //If the body of a text message is only an image URL, return the body message
                    return this.Body;

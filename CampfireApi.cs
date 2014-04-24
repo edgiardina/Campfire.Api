@@ -225,7 +225,7 @@ namespace Campfire.Api
                 //TODO: Move this call to an external method so we return the messages without waiting for the uploads to be fetched.
                 if (j.Type == MessageType.UploadMessage)
                 {
-                    j.Upload = await GetUpload(j.Id, j.RoomId);
+                    ((UploadMessage)j).Upload = await GetUpload(j.Id, j.RoomId);
                 }
             }
 
