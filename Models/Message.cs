@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace Campfire.Api.Models
 {
@@ -28,22 +29,6 @@ namespace Campfire.Api.Models
 
         [DataMember]
         public bool Starred { get; set; }
-        
-        public string ImageUrl
-        {
-            get
-            {
-               if (this.Type == MessageType.TextMessage)
-               {
-                   //If the body of a text message is only an image URL, return the body message
-                   return this.Body;
-               }
-               else
-               {
-                   return null;
-               } 
-            }
-        }
 
         public bool IsStarrable
         {
